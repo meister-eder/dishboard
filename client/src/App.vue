@@ -1,12 +1,13 @@
 <template>
   <v-app>
-    <v-main>
-      <HelloWorld subtitle="Servus" />
-    </v-main>
+    <default-layout>
+      <v-main>
+        <router-view />
+      </v-main>
+    </default-layout>
   </v-app>
 </template>
 
 <script setup lang="ts">
-import HelloWorld from '@/components/HelloWorld.vue'
-
+import DefaultLayout from "@/layouts/Default.vue";
 </script>

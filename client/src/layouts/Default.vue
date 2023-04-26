@@ -1,0 +1,38 @@
+<template>
+  <div>
+    <v-app-bar color="primary" app>
+      <template v-slot:prepend>
+        <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+      </template>
+      <v-app-bar-title>Dishboard</v-app-bar-title>
+      <v-spacer></v-spacer>
+
+      <template v-slot:append>
+        <v-btn icon="mdi-dots-vertical"></v-btn>
+      </template>
+    </v-app-bar>
+
+    <v-navigation-drawer v-model="drawer">
+      <v-list color="transparent">
+        <v-list-item
+          href="/"
+          prepend-icon="mdi-view-dashboard"
+          title="Home"
+        ></v-list-item>
+        <v-list-item
+          href="/about"
+          prepend-icon="mdi-information"
+          title="About"
+        ></v-list-item>
+      </v-list>
+    </v-navigation-drawer>
+
+    <slot></slot>
+  </div>
+</template>
+
+<script lang="ts" setup>
+import { ref } from "vue";
+
+const drawer = ref(false);
+</script>
