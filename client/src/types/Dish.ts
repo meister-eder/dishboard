@@ -21,6 +21,13 @@ export type DishCategory = (typeof dishCategories)[number];
 
 export type Days = "Weekdays" | "Weekends";
 export type MealTime = "Breakfast" | "Lunch" | "Dinner";
+export const availabilityStrings = [
+  "Weekdays",
+  "Weekends",
+  "Breakfast",
+  "Lunch",
+  "Dinner",
+];
 
 export interface DishAvailability {
   day: Days[];

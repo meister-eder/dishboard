@@ -40,16 +40,16 @@
               ></v-select>
             </v-col>
             <v-col>
-              <!-- <v-select
-                v-model="selectedAvailability"
-                :items="availabilities"
+              <v-select
+                v-model="selectedAvailabilities"
+                :items="availabilityStrings"
                 label="Availability"
                 variant="outlined"
                 dense
                 chips
                 clearable
                 multiple
-              ></v-select> -->
+              ></v-select>
             </v-col>
           </v-row>
           <v-checkbox label="Hide inactive" v-model="hideInactive"></v-checkbox>
@@ -62,7 +62,12 @@
         <p class="my-4">{{ filteredDishes.length }} results</p>
       </v-col>
       <v-col align="center">
-        <v-btn large color="primary">New Dish</v-btn>
+        <v-btn large color="primary" @click="dialogOpen = true">New Dish</v-btn>
+        <v-dialog v-model="dialogOpen" persistent width="1024">
+          <v-card>
+            <dish-form @cancel="dialogOpen = false"></dish-form>
+          </v-card>
+        </v-dialog>
       </v-col>
       <v-spacer></v-spacer>
     </v-row>
@@ -86,10 +91,14 @@
 import {
   Dish,
   DishAvailability,
+  availabilityStrings,
   dishCategories,
   DishCategory,
+  Days,
+  MealTime,
 } from "@/types/Dish";
 import DishCard from "@/components/DishCard.vue";
+import DishForm from "@/components/DishForm.vue";
 import { computed, ref } from "vue";
 
 const props = defineProps({
@@ -103,20 +112,12 @@ const props = defineProps({
   },
 });
 
-//TODO: change this type to a string list
-// const availabilities: DishAvailability[] = [
-//   "weekdays",
-//   "weekends",
-//   "breakfast",
-//   "lunch",
-//   "dinner"
-// ];
-
 const search = ref("");
 const selectedCategory = ref<DishCategory | null>(null);
-const selectedAvailability = ref<DishAvailability | null>(null);
+const selectedAvailabilities = ref<Days | MealTime | []>([]);
 const showAdvancedSearch = ref(false);
 const hideInactive = ref(false);
+const dialogOpen = ref(false);
 
 const filteredDishes = computed(() => {
   let result = props.dishes;
@@ -131,11 +132,19 @@ const filteredDishes = computed(() => {
   if (selectedCategory.value) {
     result = result.filter((dish) => dish.category === selectedCategory.value);
   }
-  // if (selectedAvailability.value) {
-  //   result = result.filter((dish) =>
-  //     dish.availability.includes(selectedAvailability.value)
-  //   );
-  // }
+
+  // TODO: this doesnt work yet
+  if (selectedAvailabilities.value.length !== 0) {
+    result = result.filter((dish) => {
+      console.log("Dish", dish.availability.day);
+      console.log(selectedAvailabilities.value);
+      // if (selectedAvailabilities.value.includes(dish.availability.day)) {
+      //   return true;
+      // }
+      return true;
+      // return selectedAvailabilities.value.includes(dish.availability.day);
+    });
+  }
   return result;
 });
 </script>
