@@ -58,6 +58,12 @@
     </v-card>
     <v-divider></v-divider>
     <p class="my-4">{{ filteredDishes.length }} results</p>
+    <v-progress-circular
+      v-if="loading"
+      color="primary"
+      indeterminate
+    ></v-progress-circular>
+
     <div
       v-for="dish in filteredDishes"
       :key="dish.id"
@@ -77,6 +83,10 @@ const props = defineProps({
   dishes: {
     type: Array as () => Dish[],
     required: true,
+  },
+  loading: {
+    type: Boolean,
+    required: false,
   },
 });
 
