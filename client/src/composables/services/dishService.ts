@@ -61,10 +61,10 @@ export const useDishes = () => {
     }
   };
 
-  const insertDish = async (id?: string) => {
+  const insertDish = async (dish: Dish) => {
     loading.value = true;
     try {
-      const response = await axios.put(url, id);
+      const response = await axios.put(url, dish);
 
       if (response.data) {
         updatedDish.value = response.data.data;

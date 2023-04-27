@@ -97,8 +97,8 @@ router.get("/dishes/clear", (req, res) => {
 });
 
 // get dish by id
-router.get("/dishes/:_id", (req, res) => {
-  const dish = _dishes.find((x) => x._id === req.params._id);
+router.get("/dishes/:id", (req, res) => {
+  const dish = _dishes.find((x) => x.id == req.params.id);
 
   res.json({
     status: "OK",
@@ -117,9 +117,9 @@ router.put("/dishes", (req, res) => {
     let dish = req.body,
       status = "OK";
 
-    if (!dish._id) {
+    if (!dish.id) {
       //
-      dish._id = uuid();
+      dish.id = uuid();
       dish._Created = new Date();
       dish._Changed = null;
 
@@ -127,7 +127,7 @@ router.put("/dishes", (req, res) => {
       _dishes.push(dish);
     } else {
       //
-      const dishIndex = _dishes.findIndex((x) => x._id === dish._id);
+      const dishIndex = _dishes.findIndex((x) => x.id == dish.id);
 
       //
       if (dishIndex >= 0) {
@@ -138,7 +138,7 @@ router.put("/dishes", (req, res) => {
         _dishes[dishIndex] = dish;
       } else {
         //
-        status = `dish not found for _id ${dish._id}`;
+        status = `dish not found for _id ${dish.id}`;
       }
     }
 
@@ -150,9 +150,11 @@ router.put("/dishes", (req, res) => {
 });
 
 // delete dish
-router.delete("/dishes/:_id", (req, res) => {
-  let dishIndex = _dishes.findIndex((x) => x._id === req.params._id);
-
+router.delete("/dishes/:id", (req, res) => {
+  console.log(req.params.id);
+  let dishIndex = _dishes.findIndex((x) => {
+    return x.id == req.params.id;
+  });
   if (dishIndex !== -1) {
     _dishes.splice(dishIndex, 1);
   }

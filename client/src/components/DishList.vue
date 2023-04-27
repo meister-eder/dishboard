@@ -65,7 +65,10 @@
         <v-btn large color="primary" @click="dialogOpen = true">New Dish</v-btn>
         <v-dialog v-model="dialogOpen" persistent width="1024">
           <v-card>
-            <dish-form @cancel="dialogOpen = false"></dish-form>
+            <dish-form
+              @cancel="dialogOpen = false"
+              @saved="emit('saved')"
+            ></dish-form>
           </v-card>
         </v-dialog>
       </v-col>
@@ -82,7 +85,7 @@
       :key="dish.id"
       class="d-flex align-center flex-column"
     >
-      <dish-card :dish="dish" class="mb-4" />
+      <dish-card :dish="dish" class="mb-4" @saved="$emit('saved')" />
     </div>
   </v-container>
 </template>
@@ -111,6 +114,8 @@ const props = defineProps({
     required: false,
   },
 });
+
+const emit = defineEmits(["saved"]);
 
 const search = ref("");
 const selectedCategory = ref<DishCategory | null>(null);

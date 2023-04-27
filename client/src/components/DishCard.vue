@@ -33,13 +33,17 @@
         color="error"
         small
         prepend-icon="mdi-delete"
-        @click="deleteDish(dish.name)"
+        @click="deleteDishRequest(dish)"
         >Delete</v-btn
       >
     </v-card-actions>
     <v-dialog v-model="dialogOpen" persistent width="1024">
       <v-card>
-        <dish-form :dish="dish" @cancel="closeDialog"></dish-form>
+        <dish-form
+          :dish="dish"
+          @cancel="closeDialog"
+          @saved="$emit('saved')"
+        ></dish-form>
       </v-card>
     </v-dialog>
   </v-card>
@@ -52,12 +56,18 @@ import AvailabilityChips from "@/components/AvailabilityChips.vue";
 import DishForm from "@/components/DishForm.vue";
 import { reactive, ref } from "vue";
 
+import { useDishes } from "@/composables/services/dishService";
+
+const { deletedDish, loading, error, deleteDish } = useDishes();
+
 defineProps({
   dish: {
     type: Object as () => Dish,
     required: true,
   },
 });
+
+const emit = defineEmits(["saved"]);
 
 const dialogOpen = ref(false);
 
@@ -71,11 +81,18 @@ const closeDialog = () => {
   dialogOpen.value = false;
 };
 
-const deleteDish = (name: string) => {
+const deleteDishRequest = async (dish: Dish) => {
   // TODO: nicer dialog component
-  if (!confirm(`Are you sure you want to delete the dish ${name}?`)) {
+  if (!confirm(`Are you sure you want to delete the dish ${dish.name}?`)) {
     return;
   }
-  console.warn("deleted ", name);
+  try {
+    await deleteDish(dish.id);
+  } catch (error) {
+    console.error(error);
+  } finally {
+    closeDialog();
+    emit("saved");
+  }
 };
 </script>

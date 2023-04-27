@@ -78,6 +78,10 @@
 import { Dish, dishCategories, availabilityStrings } from "@/types/Dish";
 import { ref, reactive, computed } from "vue";
 
+import { useDishes } from "@/composables/services/dishService";
+
+const { updatedDish, loading, error, insertDish } = useDishes();
+
 const props = defineProps({
   dish: {
     type: Object as () => Dish,
@@ -85,7 +89,7 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(["save", "cancel"]);
+const emit = defineEmits(["saved", "cancel"]);
 let editedItem = ref();
 
 if (props.dish) {
@@ -124,9 +128,13 @@ const availabilityDays = availabilityStrings.slice(0, 2);
 
 const availabilityTimes = availabilityStrings.slice(2);
 
-function save() {
-  if (valid.value) {
-    emit("save", editedItem.value);
+async function save() {
+  try {
+    await insertDish(editedItem.value);
+  } catch (error) {
+    console.error(error);
+  } finally {
+    emit("saved");
     cancel();
   }
 }
