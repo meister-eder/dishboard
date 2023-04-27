@@ -34,6 +34,7 @@
         small
         prepend-icon="mdi-delete"
         @click="deleteDishRequest(dish)"
+        :loading="loading"
         >Delete</v-btn
       >
     </v-card-actions>
@@ -54,11 +55,11 @@ import { Dish } from "@/types/Dish";
 
 import AvailabilityChips from "@/components/AvailabilityChips.vue";
 import DishForm from "@/components/DishForm.vue";
-import { reactive, ref } from "vue";
+import { ref } from "vue";
 
 import { useDishes } from "@/composables/services/dishService";
 
-const { deletedDish, loading, error, deleteDish } = useDishes();
+const { loading, deleteDish } = useDishes();
 
 defineProps({
   dish: {
@@ -87,10 +88,12 @@ const deleteDishRequest = async (dish: Dish) => {
     return;
   }
   try {
+    loading.value = true;
     await deleteDish(dish.id);
   } catch (error) {
     console.error(error);
   } finally {
+    loading.value = false;
     closeDialog();
     emit("saved");
   }

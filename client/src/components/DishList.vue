@@ -40,6 +40,10 @@
               ></v-select>
             </v-col>
             <v-col>
+              <!-- i removed the "multiple" prop because there is currently a bug with the type handling
+                this prevented the image from being built
+                see: https://github.com/vuejs/language-tools/issues/2708
+             -->
               <v-select
                 v-model="selectedAvailabilities"
                 :items="availabilityStrings"
@@ -48,7 +52,6 @@
                 dense
                 chips
                 clearable
-                multiple
               ></v-select>
             </v-col>
           </v-row>
@@ -93,7 +96,6 @@
 <script setup lang="ts">
 import {
   Dish,
-  DishAvailability,
   availabilityStrings,
   dishCategories,
   DishCategory,

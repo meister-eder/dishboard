@@ -40,11 +40,14 @@
         </v-row>
         <v-row>
           <v-col>
+            <!-- i removed the "multiple" prop because there is currently a bug with the type handling
+                this prevented the image from being built
+                see: https://github.com/vuejs/language-tools/issues/2708
+             -->
             <v-select
               v-model="editedItem.availability.day"
               :items="availabilityDays"
               label="Availability days"
-              multiple
               chips
               clearable
               required
@@ -55,7 +58,6 @@
               v-model="editedItem.availability.time"
               :items="availabilityTimes"
               label="Availability times"
-              multiple
               chips
               clearable
               required
@@ -69,18 +71,20 @@
     <v-card-actions>
       <v-spacer></v-spacer>
       <v-btn color="blue darken-1" text @click="cancel">Cancel</v-btn>
-      <v-btn color="blue darken-1" text @click="save"> Save </v-btn>
+      <v-btn color="blue darken-1" text @click="save" :loading="loading">
+        Save
+      </v-btn>
     </v-card-actions>
   </v-card>
 </template>
 
 <script setup lang="ts">
 import { Dish, dishCategories, availabilityStrings } from "@/types/Dish";
-import { ref, reactive, computed } from "vue";
+import { ref } from "vue";
 
 import { useDishes } from "@/composables/services/dishService";
 
-const { updatedDish, loading, error, insertDish } = useDishes();
+const { loading, insertDish } = useDishes();
 
 const props = defineProps({
   dish: {
@@ -113,15 +117,14 @@ if (props.dish) {
   );
 }
 const valid = ref(true);
-const dialog = ref(false);
 
 const nameRules = [
-  (v) => !!v || "Name is required",
-  (v) => v.length <= 50 || "Name must be less than 50 characters",
+  (v: any) => !!v || "Name is required",
+  (v: any) => v.length <= 50 || "Name must be less than 50 characters",
 ];
-const priceRules = [(v) => !!v || "Price is required"];
+const priceRules = [(v: number) => !!v || "Price is required"];
 const waitTimeRules = [
-  (v) => !v || v >= 0 || "Wait time must be a positive number",
+  (v: any) => !v || v >= 0 || "Wait time must be a positive number",
 ];
 
 const availabilityDays = availabilityStrings.slice(0, 2);
@@ -130,10 +133,12 @@ const availabilityTimes = availabilityStrings.slice(2);
 
 async function save() {
   try {
+    loading.value = true;
     await insertDish(editedItem.value);
   } catch (error) {
     console.error(error);
   } finally {
+    loading.value = false;
     emit("saved");
     cancel();
   }

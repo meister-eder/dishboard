@@ -6,10 +6,16 @@
 
 <script lang="ts" setup>
 import DishList from "@/components/DishList.vue";
-import { Dish } from "@/types/Dish";
 import { useDishes } from "@/composables/services/dishService";
 
-const { dishes, loading, error, getAllDishes } = useDishes();
+const { dishes, loading, getAllDishes } = useDishes();
 
-getAllDishes();
+try {
+  loading.value = true;
+  getAllDishes();
+} catch (error) {
+  console.log(error);
+} finally {
+  loading.value = false;
+}
 </script>
