@@ -15,16 +15,18 @@
 
     <v-navigation-drawer v-model="drawer">
       <v-list color="transparent">
-        <v-list-item
-          href="/"
-          prepend-icon="mdi-view-dashboard"
-          title="Home"
-        ></v-list-item>
-        <v-list-item
-          href="/about"
-          prepend-icon="mdi-information"
-          title="About"
-        ></v-list-item>
+        <router-link to="/" style="text-decoration: none; color: inherit">
+          <v-list-item
+            prepend-icon="mdi-view-dashboard"
+            title="Home"
+          ></v-list-item>
+        </router-link>
+        <router-link to="/about" style="text-decoration: none; color: inherit">
+          <v-list-item
+            prepend-icon="mdi-information"
+            title="About"
+          ></v-list-item>
+        </router-link>
       </v-list>
     </v-navigation-drawer>
 

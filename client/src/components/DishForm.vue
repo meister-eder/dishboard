@@ -50,6 +50,7 @@
               label="Availability days"
               chips
               clearable
+              multiple
               required
             ></v-select>
           </v-col>
@@ -60,6 +61,7 @@
               label="Availability times"
               chips
               clearable
+              multiple
               required
             ></v-select>
           </v-col>
@@ -71,7 +73,13 @@
     <v-card-actions>
       <v-spacer></v-spacer>
       <v-btn color="blue darken-1" text @click="cancel">Cancel</v-btn>
-      <v-btn color="blue darken-1" text @click="save" :loading="loading">
+      <v-btn
+        color="blue darken-1"
+        text
+        @click="save"
+        :loading="loading"
+        :disabled="!valid"
+      >
         Save
       </v-btn>
     </v-card-actions>

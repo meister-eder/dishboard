@@ -141,7 +141,10 @@ const filteredDishes = computed(() => {
   }
 
   // TODO: this doesnt work yet
-  if (selectedAvailabilities.value.length !== 0) {
+  if (
+    selectedAvailabilities.value &&
+    selectedAvailabilities.value.length !== 0
+  ) {
     result = result.filter((dish) => {
       console.log("Dish", dish.availability.day);
       console.log(selectedAvailabilities.value);
