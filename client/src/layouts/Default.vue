@@ -4,7 +4,8 @@
       <template v-slot:prepend>
         <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       </template>
-      <v-app-bar-title>Dishboard</v-app-bar-title>
+      <v-icon>mdi-food</v-icon>
+      <v-app-bar-title class="font-weight-bold">Dishboard</v-app-bar-title>
       <v-spacer></v-spacer>
 
       <template v-slot:append>
