@@ -32,7 +32,7 @@
             <v-col>
               <v-select
                 v-model="selectedCategory"
-                :items="categories"
+                :items="dishCategories"
                 variant="outlined"
                 clearable
                 label="Category"
@@ -57,7 +57,15 @@
       </v-expand-transition>
     </v-card>
     <v-divider></v-divider>
-    <p class="my-4">{{ filteredDishes.length }} results</p>
+    <v-row align="center">
+      <v-col>
+        <p class="my-4">{{ filteredDishes.length }} results</p>
+      </v-col>
+      <v-col align="center">
+        <v-btn large color="primary">New Dish</v-btn>
+      </v-col>
+      <v-spacer></v-spacer>
+    </v-row>
     <v-progress-circular
       v-if="loading"
       color="primary"
@@ -75,7 +83,12 @@
 </template>
 
 <script setup lang="ts">
-import { Dish, DishAvailability, DishCategories } from "@/types/Dish";
+import {
+  Dish,
+  DishAvailability,
+  dishCategories,
+  DishCategory,
+} from "@/types/Dish";
 import DishCard from "@/components/DishCard.vue";
 import { computed, ref } from "vue";
 
@@ -90,14 +103,6 @@ const props = defineProps({
   },
 });
 
-const categories: DishCategories[] = [
-  "starter",
-  "main course",
-  "dessert",
-  "beverage",
-  "other",
-];
-
 //TODO: change this type to a string list
 // const availabilities: DishAvailability[] = [
 //   "weekdays",
@@ -108,7 +113,7 @@ const categories: DishCategories[] = [
 // ];
 
 const search = ref("");
-const selectedCategory = ref<DishCategories | null>(null);
+const selectedCategory = ref<DishCategory | null>(null);
 const selectedAvailability = ref<DishAvailability | null>(null);
 const showAdvancedSearch = ref(false);
 const hideInactive = ref(false);

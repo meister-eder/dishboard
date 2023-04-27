@@ -37,6 +37,11 @@
         >Delete</v-btn
       >
     </v-card-actions>
+    <v-dialog v-model="dialogOpen" persistent width="1024">
+      <v-card>
+        <dish-form :dish="dish" @cancel="closeDialog"></dish-form>
+      </v-card>
+    </v-dialog>
   </v-card>
 </template>
 
@@ -44,6 +49,7 @@
 import { Dish } from "@/types/Dish";
 
 import AvailabilityChips from "@/components/AvailabilityChips.vue";
+import DishForm from "@/components/DishForm.vue";
 import { reactive, ref } from "vue";
 
 defineProps({
@@ -53,11 +59,16 @@ defineProps({
   },
 });
 
-let currentDish: Dish | {} = reactive({});
+const dialogOpen = ref(false);
 
 const editDish = (dish: Dish) => {
-  currentDish = dish;
-  console.log(currentDish);
+  console.log(dish);
+
+  dialogOpen.value = true;
+};
+
+const closeDialog = () => {
+  dialogOpen.value = false;
 };
 
 const deleteDish = (name: string) => {

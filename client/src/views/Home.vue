@@ -1,6 +1,5 @@
 <template>
   <v-container>
-    <h2>Dishes</h2>
     <dish-list :dishes="dishes" :loading="loading" />
   </v-container>
 </template>

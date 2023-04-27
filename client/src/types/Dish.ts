@@ -3,24 +3,26 @@ export interface Dish {
   name: string;
   description: string;
   price: number;
-  category: DishCategories;
+  category: DishCategory;
   availability: DishAvailability;
   isActive: boolean;
   waitTime: number;
 }
 
-//TODO: type is a single entry, export the list as enum
-export type DishCategories =
-  | "starter"
-  | "main course"
-  | "dessert"
-  | "beverage"
-  | "other";
+export const dishCategories = [
+  "starter",
+  "main course",
+  "dessert",
+  "beverage",
+  "other",
+];
+
+export type DishCategory = (typeof dishCategories)[number];
+
+export type Days = "Weekdays" | "Weekends";
+export type MealTime = "Breakfast" | "Lunch" | "Dinner";
 
 export interface DishAvailability {
-  breakfast: boolean;
-  lunch: boolean;
-  dinner: boolean;
-  weekdays: boolean;
-  weekends: boolean;
+  day: Days[];
+  time: MealTime[];
 }

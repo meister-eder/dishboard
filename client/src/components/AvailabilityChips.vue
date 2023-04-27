@@ -1,11 +1,14 @@
 <template>
   <v-chip-group>
     <!-- display weekends/days first since it's most important and always required -->
-    <v-chip v-if="availability.weekdays">Weekdays</v-chip>
-    <v-chip v-if="availability.weekends">Weekends</v-chip>
-    <v-chip v-if="availability.breakfast">Breakfast</v-chip>
-    <v-chip v-if="availability.lunch">Lunch</v-chip>
-    <v-chip v-if="availability.dinner">Dinner</v-chip>
+    <span v-if="availability.day">
+      <v-chip v-for="(day, i) in availability.day" :key="i"> {{ day }}</v-chip>
+    </span>
+    <span v-if="availability.time">
+      <v-chip v-for="(time, i) in availability.time" :key="i">
+        {{ time }}</v-chip
+      >
+    </span>
   </v-chip-group>
 </template>
 
