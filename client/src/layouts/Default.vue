@@ -9,7 +9,12 @@
       <v-spacer></v-spacer>
 
       <template v-slot:append>
-        <span>Hi {{ userStore.name }}!</span>
+        <router-link
+          to="/profile"
+          style="text-decoration: none; color: inherit"
+        >
+          <span>Hi {{ userStore.name }}!</span>
+        </router-link>
         <v-btn icon="mdi-dots-vertical"></v-btn>
       </template>
     </v-app-bar>
