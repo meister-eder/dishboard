@@ -1,6 +1,8 @@
 <template>
   <v-container>
-    <dish-list :dishes="dishes" :loading="loading" @saved="getAllDishes()" />
+    <keep-alive>
+      <dish-list :dishes="dishes" :loading="loading" @saved="getAllDishes()" />
+    </keep-alive>
   </v-container>
 </template>
 

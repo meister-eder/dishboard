@@ -4,7 +4,6 @@ This is a sample project built with Vue 3 (with composition api) and a simple ex
 It allows the user to create, view and update dishes for a restaurant
 
 I used Vite as a bundler and Vuetify for UI components.
-The pinia store is also included but was not used, since it is not necessary for the scope of the project.
 
 ## Setup
 

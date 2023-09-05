@@ -40,10 +40,6 @@
         </v-row>
         <v-row>
           <v-col>
-            <!-- i removed the "multiple" prop because there is currently a bug with the type handling
-                this prevented the image from being built
-                see: https://github.com/vuejs/language-tools/issues/2708
-             -->
             <v-select
               v-model="editedItem.availability.day"
               :items="availabilityDays"

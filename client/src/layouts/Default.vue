@@ -9,6 +9,7 @@
       <v-spacer></v-spacer>
 
       <template v-slot:append>
+        <span>Hi {{ userStore.name }}!</span>
         <v-btn icon="mdi-dots-vertical"></v-btn>
       </template>
     </v-app-bar>
@@ -36,6 +37,8 @@
 
 <script lang="ts" setup>
 import { ref } from "vue";
+import { useUserStore } from "@/store/user";
 
 const drawer = ref(false);
+const userStore = useUserStore();
 </script>

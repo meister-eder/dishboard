@@ -83,13 +83,15 @@
       indeterminate
     ></v-progress-circular>
 
-    <div
-      v-for="dish in filteredDishes"
-      :key="dish.id"
-      class="d-flex align-center flex-column"
-    >
-      <dish-card :dish="dish" class="mb-4" @saved="$emit('saved')" />
-    </div>
+    <TransitionGroup name="dish-list">
+      <div
+        v-for="dish in filteredDishes"
+        :key="dish.id"
+        class="d-flex align-center flex-column"
+      >
+        <dish-card :dish="dish" class="mb-4" @saved="$emit('saved')" />
+      </div>
+    </TransitionGroup>
   </v-container>
 </template>
 
@@ -158,3 +160,18 @@ const filteredDishes = computed(() => {
   return result;
 });
 </script>
+<style>
+.dish-list-move,
+.dish-list-enter-active,
+.dish-list-leave-active {
+  transition: all 0.5s ease;
+}
+.dish-list-enter-from,
+.dish-list-leave-to {
+  opacity: 0;
+  transform: translateY(30px);
+}
+.dish-list-leave-active {
+  position: absolute;
+}
+</style>

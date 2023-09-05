@@ -77,6 +77,76 @@ var _dishes = [
     isActive: true,
     waitTime: 3,
   },
+  {
+    id: 6,
+    name: "Chicken Alfredo",
+    description:
+      "Fettuccine pasta with creamy Alfredo sauce and grilled chicken",
+    price: 14.99,
+    category: "main course",
+    availability: {
+      day: ["Weekends", "Weekdays"],
+      time: ["Lunch", "Dinner"],
+    },
+    isActive: true,
+    waitTime: 20,
+  },
+  {
+    id: 7,
+    name: "Caesar Salad",
+    description:
+      "Romaine lettuce, croutons, Parmesan cheese, and Caesar dressing",
+    price: 8.99,
+    category: "starter",
+    availability: {
+      day: ["Weekends", "Weekdays"],
+      time: ["Lunch", "Dinner"],
+    },
+    isActive: true,
+    waitTime: 10,
+  },
+  {
+    id: 8,
+    name: "Chocolate Lava Cake",
+    description:
+      "Warm chocolate cake with a molten chocolate center, served with vanilla ice cream",
+    price: 7.99,
+    category: "dessert",
+    availability: {
+      day: ["Weekends", "Weekdays"],
+      time: ["Dinner"],
+    },
+    isActive: true,
+    waitTime: 15,
+  },
+  {
+    id: 9,
+    name: "Margarita Pizza",
+    description:
+      "Classic pizza with tomato sauce, mozzarella cheese, and fresh basil",
+    price: 11.99,
+    category: "main course",
+    availability: {
+      day: ["Weekends", "Weekdays"],
+      time: ["Lunch", "Dinner"],
+    },
+    isActive: true,
+    waitTime: 18,
+  },
+  {
+    id: 10,
+    name: "Mojito",
+    description:
+      "A refreshing cocktail with rum, lime juice, mint leaves, and soda water",
+    price: 9.99,
+    category: "beverage",
+    availability: {
+      day: ["Weekends", "Weekdays"],
+      time: ["Lunch", "Dinner"],
+    },
+    isActive: true,
+    waitTime: 5,
+  },
 ];
 
 // get dishes
